@@ -1,0 +1,25 @@
+# Collect market headlines every weekday evening (after NSE close) so the
+# dataset grows on its own. Only headlines are stored; scoring runs locally.
+name: collect-headlines
+on:
+  schedule:
+    - cron: "45 12 * * 1-5"   # 18:15 IST
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install pandas feedparser
+      - run: python run_pipeline.py collect
+      - name: Commit new headlines
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/headlines.csv
+          git diff --cached --quiet || git commit -m "data: headlines $(date -u +%F)"
+          git push

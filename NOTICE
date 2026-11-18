@@ -1,0 +1,11 @@
+nifty-news-sentiment
+Copyright 2026 Avani Singh
+
+This project uses the FinBERT model weights published by Prosus AI
+(https://github.com/ProsusAI/finBERT, https://huggingface.co/ProsusAI/finbert),
+licensed under the Apache License 2.0. FinBERT is described in:
+  Dogu Araci, "FinBERT: Financial Sentiment Analysis with Pre-trained
+  Language Models", arXiv:1908.10063 (2019).
+
+The news collection, stock tagging, price alignment, analysis and dashboard
+code in this repository is original work, also released under Apache-2.0.
